@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SSM框架表单</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <form class="s">
+        <label>ID：</label>
+        <input type="text" id="id"><br>
+
+        <label>用户名：</label>
+        <input type="text" id="userName"><br>
+
+        <label>密码：</label>
+        <input type="text" id="passWord"><br>
+
+        <label>真实姓名：</label>
+        <input type="text" id="realName"><br>
+
+        <input type="button" value="新增" onclick="addData()">
+        <input type="button" value="修改" onclick="updateData()">
+        <input type="button" value="删除" onclick="deleteData()">
+        <input type="button" value="查询" onclick="queryData()">
+    </form>
+
+    <script>
+        function addData() {
+            var id = $("#id").val();
+            var userName = $("#userName").val();
+            var passWord = $("#passWord").val();
+            var realName = $("#realName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/testBoot/insert",
+                data: {id: id, userName: userName, passWord: passWord, realName: realName},
+                success: function(data) {
+                    alert("操作成功！");
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert("操作失败：" + xhr.responseText);
+                }
+            });
+        }
+
+        function updateData() {
+            var id = $("#id").val();
+            var userName = $("#userName").val();
+            var passWord = $("#passWord").val();
+            var realName = $("#realName").val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/testBoot/update",
+                data: {id: id, userName: userName, passWord: passWord, realName: realName},
+                success: function(data) {
+                    alert("操作成功！");
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert("操作失败：" + xhr.responseText);
+                }
+            });
+        }
+
+        function deleteData() {
+            var id = $("#id").val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/testBoot/delete",
+                data: {id: id},
+                success: function(data) {
+                    alert("操作成功！");
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert("操作失败：" + xhr.responseText);
+                }
+            });
+        }
+
+        function queryData() {
+            var id = $("#id").val();
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/testBoot/selectAll",
+                data: {id: id},
+                success: function(data) {
+                    alert(JSON.stringify(data));
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    alert("操作失败：" + xhr.responseText);
+                }
+            });
+        }
+        function deleteAllData() {
+  $.ajax({
+    type: "DELETE",
+    url: "http://localhost:8080/testBoot/deleteAll",
+    success: function(data) {
+      // 在控制台输出响应数据
+      console.log(data);
+      // 执行其他操作，比如重新加载页面
+    },
+    error: function(xhr, textStatus, errorThrown) {
+      // 在控制台输出错误信息
+      console.log("操作失败：" + xhr.responseText);
+    }
+  });
+}
+    </script>
+  
+</body>
+<style>.s {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    margin: 0 auto;
+  }
+  
+  .s label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .s input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .s input[type="button"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  
+  .s input[type="button"]:hover {
+    background-color: #0069d9;
+  }
+  </style>
+</html>
